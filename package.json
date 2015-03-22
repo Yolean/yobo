@@ -4,19 +4,23 @@
   "description": "Yolean Backbone",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/yolean/yobo"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Yolean/yobo/issues"
   },
   "homepage": "https://github.com/yolean/yobo",
   "dependencies": {
     "backbone": "^1.1.2"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.2.1"
   }
 }
