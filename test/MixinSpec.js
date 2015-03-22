@@ -15,7 +15,7 @@ describe("#mixin", function() {
 
   });
 
-  it("Is not allowed directly on those, so do a dummy '.extend({})' unless you already specialized", function() {
+  xit("Is not allowed directly on those, so do a dummy '.extend({})' unless you already specialized", function() {
     expect(function() {
       var MyModel = yobo.Model.mixin({});
     }).to.throw('Forbidden to modify exported Model, use .extend({}) first');
@@ -42,6 +42,7 @@ describe("#mixin", function() {
           happened.push('B');
         }
       });
+      new MySpecial().myFn();
       expect(happened).to.deep.equal(['A','B']);
     });
 
