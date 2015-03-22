@@ -1,0 +1,22 @@
+{
+  "name": "yobo",
+  "version": "0.1.0",
+  "description": "Yolean Backbone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yolean/yobo"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yolean/yobo/issues"
+  },
+  "homepage": "https://github.com/yolean/yobo",
+  "dependencies": {
+    "backbone": "^1.1.2"
+  }
+}
