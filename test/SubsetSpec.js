@@ -35,9 +35,6 @@ describe('Subset', function() {
       expect(add.attributes.visible).to.be.true();
     });
 
-    xit("May some day take non-function first arg, for cacheable filters like those in PourOver", function() {
-    });
-
   });
 
   describe("#subsetWhere", function() {
@@ -46,8 +43,8 @@ describe('Subset', function() {
       var c = new Collection([new Model({id: '001', type: 'B'}), new Model({id: '002', type: 'A'}), new Model({id: '003', type: 'B'})]);
       var sA = c.subsetWhere({type:'A'});
       expect(sA.pluck('id')).to.deep.equal(['002']);
-      var sB = c.subsetWehre({type:'B'});
-      expect(aB.pluck('id')).to.deep.equal(['001','003']);
+      var sB = c.subsetWhere({type:'B'});
+      expect(sB.pluck('id')).to.deep.equal(['001','003']);
     });
 
     it("Too supports immerse, .i.e. lets any consumer of the subset do .add without knowlege of the filter", function() {
@@ -58,11 +55,15 @@ describe('Subset', function() {
       expect(s.pluck('type')).to.deep.equal(['C']);
     });
 
+    it("Is not embedded in #subset because we want to keep a future object arg open for advanced filters", function() {
+      // like those from Filters.make*Filter in PourOver
+    });
+
   });
 
-  describe("subset add", function() {
+  describe("Subset modification", function() {
 
-    it("Is always added to superset", function() {
+    it("#add is reflected to superset", function() {
       var c = new Collection(new Model({id: '001', type: 'B'}));
       var s = new Collection().subsetWhere({type:'C'}, function(model) {
         model.set('type','C');
@@ -81,17 +82,25 @@ describe('Subset', function() {
       expect(sadd.called).to.be.true();
     });
 
+    it("#remove is reflected to superset", function() {
+
+    });
+
+    it("Change events are triggered in both sets", function() {
+
+    });
+
   });
 
-  describe("superset add", function() {
+  describe("Superset modification", function() {
 
     var immerse = mocks.spy();
 
-    it("Is added to subset if it matches filter", function() {
+    it("#add is reflected in subset if it matches filter", function() {
       var c = new Collection(new Model({id: '001', type: 'B'}));
       var s = new Collection().subsetWhere({type:'C'}, immerse);
 
-      sadd = mocks.spy();
+      var sadd = mocks.spy();
       s.on('add', sadd);
       c.add(new Model({type: 'B'}));
       expect(sadd.called).to.be.false();
@@ -105,9 +114,25 @@ describe('Subset', function() {
       expect(immerse.called).to.be.false();
     });
 
+    it("In a multi-model add only those matching filter are added to subset", function() {
+
+    });
+
+    it("Remove is reflected in subset if the model matches filter", function() {
+
+    });
+
+    it("Change events don't affect subset for non-matching models", function() {
+
+    });
+
+    it("Change events affect subset for matching models", function() {
+
+    });
+
   });
 
-  describe("Change to model outside subset", function() {
+  describe("Superset model change from non-matching to matching", function() {
 
     it("Produces no change event in the subset", function() {
 
@@ -119,24 +144,14 @@ describe('Subset', function() {
 
   });
 
-  describe("subset model change to exit filter", function() {
+  describe("Subset model change from matching to non-matching", function() {
 
-  });
-
-  describe("change events in both superset and subset", function() {
-
-  });
-
-  describe("change events on the way in", function() {
-
-    xit("Counts as add so no change event?", function() {
+    it("Counts as remove so no change event", function() {
+      
     });
 
-  });
+    it("Triggers a remove event", function() {
 
-  describe("change events on the way out", function() {
-
-    xit("Counts as remove so no change event?", function() {
     });
 
   });

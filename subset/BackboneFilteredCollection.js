@@ -1,10 +1,12 @@
+'use strict';
 
 var FilteredCollection = require('backbone-filtered-collection');
 
 // the major disadvantage with this lib is that the subset is of a different type than the superset
 var cocktail = require('backbone.cocktail');
 
-var _ = require('../')._;
+var _ = require('../node_modules/backbone/node_modules/underscore');
+console.assert(!!_);
 
 var subsetConnectMixin = {
 
@@ -15,34 +17,34 @@ var subsetConnectMixin = {
     var immerse = this._subset_immerse;
     var superset = this._subset_superset;
     _.each(models, immerse);
-    superset.add(models, addopt);
+
+    return superset.add.apply(superset, arguments);
   },
 
   remove: function() {
-
+    throw 'Not implemented';
   }
 
 };
 
 cocktail.mixin(FilteredCollection, subsetConnectMixin);
 
-var supersetMixin = {
-
-  subset: function(matcher, immerse) {
-
-  },
-
-  subsetWhere: function(obj, immerse) {
-    var superset = this;
-    var subset = new FilteredCollection(superset);
-    subset.filterBy(obj);
-    console.log('filter', superset.pluck('id'), 'by', obj, 'to', subset.size());    
-    // do we need private state?
-    subset._subset_superset = superset;
-    subset._subset_immerse = immerse || function immerseNoop() {};
-    return subset;
-  }
-
+// understands both subsetWhere obj and subset filter function
+var backboneFilteredCollectionSubset = function(filterBy, immerse) {
+  var superset = this;
+  var subset = new FilteredCollection(superset);
+  subset.filterBy(filterBy);
+  console.log('filter', superset.pluck('id'), 'by', filterBy, 'to', subset.size());
+  // do we need private state?
+  subset._subset_superset = superset;
+  subset._subset_immerse = immerse || function immerseNoop() {};
+  return subset;
 };
 
-module.exports = supersetMixin;
+module.exports = {
+
+  subset: backboneFilteredCollectionSubset,
+
+  subsetWhere: backboneFilteredCollectionSubset,
+
+};
