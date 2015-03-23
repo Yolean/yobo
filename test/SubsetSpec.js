@@ -65,7 +65,7 @@ describe('Subset', function() {
 
     it("#add is reflected to superset", function() {
       var c = new Collection(new Model({id: '001', type: 'B'}));
-      var s = new Collection().subsetWhere({type:'C'}, function(model) {
+      var s = c.subsetWhere({type:'C'}, function(model) {
         model.set('type','C');
       });
 
@@ -98,7 +98,7 @@ describe('Subset', function() {
 
     it("#add is reflected in subset if it matches filter", function() {
       var c = new Collection(new Model({id: '001', type: 'B'}));
-      var s = new Collection().subsetWhere({type:'C'}, immerse);
+      var s = c.subsetWhere({type:'C'}, immerse);
 
       var sadd = mocks.spy();
       s.on('add', sadd);
@@ -147,7 +147,7 @@ describe('Subset', function() {
   describe("Subset model change from matching to non-matching", function() {
 
     it("Counts as remove so no change event", function() {
-      
+
     });
 
     it("Triggers a remove event", function() {
