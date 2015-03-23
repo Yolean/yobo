@@ -5,7 +5,7 @@ var FilteredCollection = require('backbone-filtered-collection');
 // the major disadvantage with this lib is that the subset is of a different type than the superset
 var cocktail = require('backbone.cocktail');
 
-var _ = require('../node_modules/backbone/node_modules/underscore');
+var _ = require('underscore');
 console.assert(!!_);
 
 var subsetConnectMixin = {

@@ -1,13 +1,13 @@
 
 var backbone = require('backbone');
-var backboneUnderscore = require('./node_modules/backbone/node_modules/underscore');
+var underscore = require('underscore');
 
 var mixins = require('./mixins/BackboneCocktail');
 mixins.enable(backbone);
 
 module.exports = {
 
-  _: backboneUnderscore,
+  _: underscore,
 
   Backbone: backbone,
 
