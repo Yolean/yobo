@@ -10,7 +10,7 @@ console.assert(!!_);
 
 var subsetConnectMixin = {
 
-  add: function(models, addopt) {
+  add: function(models, options) {
     var singular = !_.isArray(models);
     models = singular ? (models ? [models] : []) : models.slice();
 
@@ -21,8 +21,9 @@ var subsetConnectMixin = {
     return superset.add.apply(superset, arguments);
   },
 
-  remove: function() {
-    throw 'Not implemented';
+  remove: function(models, options) {
+    var superset = this._subset_superset;
+    return superset.remove.apply(superset, arguments);
   }
 
 };
@@ -34,7 +35,7 @@ var backboneFilteredCollectionSubset = function(filterBy, immerse) {
   var superset = this;
   var subset = new FilteredCollection(superset);
   subset.filterBy(filterBy);
-  console.log('filter', superset.pluck('id'), 'by', filterBy, 'to', subset.size());
+  
   // do we need private state?
   subset._subset_superset = superset;
   subset._subset_immerse = immerse || function immerseNoop() {};
@@ -43,7 +44,12 @@ var backboneFilteredCollectionSubset = function(filterBy, immerse) {
 
 module.exports = {
 
-  subset: backboneFilteredCollectionSubset,
+  subset: function() {
+    if (typeof arguments[0] === 'object') {
+      throw new Error('Advanced filters not supported. Use a predicate function.');
+    }
+    return backboneFilteredCollectionSubset.apply(this, arguments);
+  },
 
   subsetWhere: backboneFilteredCollectionSubset,
 
