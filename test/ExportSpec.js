@@ -23,4 +23,8 @@ describe('yobo module', function() {
     expect(yobo.Router).to.be.undefined();
   });
 
+  it('Exports _ from backbone, to avoid duplicate libs in webpack bundles', function() {
+    expect(yobo._).to.exist();
+  });
+
 });
