@@ -24,4 +24,4 @@ module.exports = {
       Backbone.View.mixin =
       Backbone.History.mixin = mixin;
   }
-}
+};
