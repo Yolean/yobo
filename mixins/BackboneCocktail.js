@@ -1,6 +1,7 @@
 'use strict';
 
 var cocktail = require('backbone.cocktail');
+var underscore = require('underscore');
 
 var mixin = function(obj, fn) {
   var parent = this;
@@ -17,11 +18,17 @@ var mixin = function(obj, fn) {
 };
 
 module.exports = {
-  enable: function(Backbone) {
-    Backbone.Model.mixin =
-      Backbone.Collection.mixin =
-      Backbone.Router.mixin =
-      Backbone.View.mixin =
-      Backbone.History.mixin = mixin;
+  enable: function(target) {
+    if (underscore.isArray(target)) {
+      target.forEach(function (component) {
+        component.mixin = mixin;
+      });
+    } else {
+      target.Model.mixin =
+        target.Collection.mixin =
+        target.Router.mixin =
+        target.View.mixin =
+        target.History.mixin = mixin;
+    }
   }
 };

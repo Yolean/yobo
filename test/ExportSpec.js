@@ -27,4 +27,8 @@ describe('yobo module', function() {
     expect(yobo._).to.exist();
   });
 
+  it('Exports .enableMixins, to enable mixins for external Backbone components', function () {
+    expect(yobo.enableMixins).to.exist();
+    expect(yobo.enableMixins).to.be.a('function');
+  });
 });
