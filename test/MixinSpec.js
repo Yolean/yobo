@@ -11,6 +11,27 @@ describe("#mixin", function() {
     expect(yobo.Collection.mixin).to.be.a('function');
   });
 
+  it("can be enabled on external components through yobo.enableMixins", function () {
+    var subject1 = {}, subject2 = {};
+    yobo.enableMixins([subject1, subject2]);
+    expect(subject1.mixin).to.exist();
+    expect(subject2.mixin).to.exist();
+
+    var subject3 = {
+      Collection: {},
+      Model: {},
+      View: {},
+      Router: {},
+      History: {},
+    };
+    yobo.enableMixins(subject3);
+    expect(subject3.Collection.mixin).to.exist();
+    expect(subject3.Model.mixin).to.exist();
+    expect(subject3.View.mixin).to.exist();
+    expect(subject3.Router.mixin).to.exist();
+    expect(subject3.History.mixin).to.exist();
+  });
+
   xit("Is a function on View, Router, History", function() {
 
   });

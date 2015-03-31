@@ -17,5 +17,7 @@ module.exports = {
   // looks like "named mixins" in backbone.cocktail, but are not supported as such in .mixin, yet
   mixins: {
     subset: require('./subset/CollectionSubsetMixin')
-  }
+  },
+
+  enableMixins: mixins.enable.bind(mixins)
 };
