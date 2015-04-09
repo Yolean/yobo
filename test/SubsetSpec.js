@@ -35,6 +35,28 @@ describe('Subset', function() {
       expect(add.attributes.visible).to.be.true();
     });
 
+    it("is possible to create several layers of subsets", function () {
+      var superset = new Collection([{ id: 1}, { id: 2}, { id: 3 } ]);
+      var subset1 = superset.subset(function (m) { return m.attributes.id > 1; });
+      var subset2 = subset1.subset(function (m) { return m.attributes.id > 2; });
+
+      expect(superset.length).to.equal(3);
+      expect(subset1.length).to.equal(2);
+      expect(subset2.length).to.equal(1);
+    });
+
+    it("Aggregates immerse for each layer of subset", function() {
+      var superset = new Collection();
+      var subset1 = superset.subset(function (m) { return true; }, function(m) { m.set('1', true); });
+      var subset2 = subset1.subset(function (m) { return true; }, function(m) { m.set('2', true); });
+      var add1 = subset1.add(new Model({}));
+      var add2 = subset2.add(new Model({}));
+      expect(add1.has('1')).to.be.true;
+      expect(add1.has('2')).to.be.false;
+      expect(add2.has('1')).to.be.true;
+      expect(add2.has('2')).to.be.true;
+    });
+
   });
 
   describe("#subsetWhere", function() {
