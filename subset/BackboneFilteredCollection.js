@@ -6,7 +6,6 @@ var FilteredCollection = require('backbone-filtered-collection');
 var cocktail = require('backbone.cocktail');
 
 var _ = require('underscore');
-console.assert(!!_);
 
 var subsetConnectMixin = {
 
