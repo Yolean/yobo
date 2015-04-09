@@ -7,6 +7,8 @@ var cocktail = require('backbone.cocktail');
 
 var _ = require('underscore');
 
+var mixins = require('../mixins/BackboneCocktail');
+
 var subsetConnectMixin = {
 
   add: function(models, options) {
@@ -34,21 +36,28 @@ var backboneFilteredCollectionSubset = function(filterBy, immerse) {
   var superset = this;
   var subset = new FilteredCollection(superset);
   subset.filterBy(filterBy);
-  
+
   // do we need private state?
   subset._subset_superset = superset;
   subset._subset_immerse = immerse || function immerseNoop() {};
   return subset;
 };
 
+var subsetMixin = function() {
+  if (typeof arguments[0] === 'object') {
+    throw new Error('Advanced filters not supported. Use a predicate function.');
+  }
+
+  var set = backboneFilteredCollectionSubset.apply(this, arguments);
+  mixins.enable([set]);
+  set.mixin(module.exports);
+
+  return set;
+};
+
 module.exports = {
 
-  subset: function() {
-    if (typeof arguments[0] === 'object') {
-      throw new Error('Advanced filters not supported. Use a predicate function.');
-    }
-    return backboneFilteredCollectionSubset.apply(this, arguments);
-  },
+  subset: subsetMixin,
 
   subsetWhere: backboneFilteredCollectionSubset,
 

@@ -35,6 +35,16 @@ describe('Subset', function() {
       expect(add.attributes.visible).to.be.true();
     });
 
+    it("is possible to create several layers of subsets", function () {
+      var superset = new Collection([{ id: 1}, { id: 2}, { id: 3 } ]);
+      var subset1 = superset.subset(function (m) { return m.attributes.id > 1; });
+      var subset2 = subset1.subset(function (m) { return m.attributes.id > 2; });
+
+      expect(superset.length).to.equal(3);
+      expect(subset1.length).to.equal(2);
+      expect(subset2.length).to.equal(1);
+    });
+
   });
 
   describe("#subsetWhere", function() {
