@@ -5,6 +5,9 @@ var underscore = require('underscore');
 var mixins = require('./mixins/BackboneCocktail');
 mixins.enable(backbone);
 
+var laxModel = require('./collection/LaxModel.js');
+laxModel(backbone.Collection);
+
 module.exports = {
 
   _: underscore,
