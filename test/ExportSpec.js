@@ -10,11 +10,11 @@ describe('yobo module', function() {
     expect(yobo.Backbone).to.exist();
   });
 
-  it('Exports .Collection, a shorthand for the (future) browser lib independent data structure', function() {
+  it('Exports .Collection, a shorthand for the data structure', function() {
     expect(yobo.Collection).to.exist();
   });
 
-  it('Exports .Model, the "class" that Collection does instanceof on', function() {
+  it('Exports .Model, the default collection item type', function() {
     expect(yobo.Model).to.exist();
   });
 
