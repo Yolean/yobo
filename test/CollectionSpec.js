@@ -49,6 +49,24 @@ describe("Collection", function() {
       }).to.throw();
     });
 
+    it("Throws Error if there is .attributes but no .cid", function() {
+      var c = new yobo.Collection();
+      expect(function() {
+        c.add({
+          attributes: {}
+        });
+      }).to.throw('Invalid Model instance, has .attributes but not .cid');
+    });
+
+    it("Throws Error if there is .cid but no .attributes", function() {
+      var c = new yobo.Collection();
+      expect(function() {
+        c.add({
+          cid: 'c123'
+        });
+      }).to.throw('Invalid Model instance, has .cid but not .attributes');
+    });
+
   });
 
 
