@@ -1,5 +1,6 @@
 
 var expect = require('chai').expect;
+var mocks = require('simple-mock');
 
 var yobo = require('../');
 
@@ -65,6 +66,26 @@ describe("Collection", function() {
           cid: 'c123'
         });
       }).to.throw('Invalid Model instance, has .cid but not .attributes');
+    });
+
+    it("Doesn't let objects through that Backbone immediately crashes on", function() {
+      var c = new yobo.Collection();
+      expect(function() {
+        c.add({
+          attributes: {},
+          cid: 'c1'
+        });
+      }).to.throw(/Backbone requires Model to have .on and .trigger functions/);
+    });
+
+    it("Does lets objects through without thorough compatibility checking", function() {
+      var c = new yobo.Collection();
+      c.add({
+        attributes: {},
+        cid: 'c1',
+        on: mocks.spy(),
+        trigger: mocks.spy()
+      });
     });
 
   });
