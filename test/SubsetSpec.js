@@ -249,4 +249,14 @@ describe('Subset', function() {
 
   });
 
+  describe("Subset #refilter", function() {
+    var c = new Collection(new Model({id: 1}));
+    var s = c.subsetWhere({id: 1});
+    expect(s.size()).to.equal(1);
+    c.at(0).attributes.id = 0;
+    expect(s.size()).to.equal(1);
+    s.refilter();
+    expect(s.size()).to.equal(0);
+  });
+
 });
