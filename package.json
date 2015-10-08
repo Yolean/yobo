@@ -1,6 +1,6 @@
 {
   "name": "yobo",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Yolean Backbone",
   "main": "index.js",
   "scripts": {
@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/Yolean/yobo",
   "dependencies": {
-    "backbone": "~1.2.0",
-    "backbone-filtered-collection": "^0.4.0",
-    "backbone.cocktail": "^0.5.10",
+    "backbone": "~1.2.3",
+    "backbone-filtered-collection": "~0.4.0",
+    "backbone.cocktail": "~0.5.10",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
