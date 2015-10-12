@@ -78,7 +78,7 @@ describe("Collection", function() {
       }).to.throw(/Backbone requires Model to have .on and .trigger functions/);
     });
 
-    it("Does lets objects through without thorough compatibility checking", function() {
+    it("Does let objects through without thorough compatibility checking", function() {
       var c = new yobo.Collection();
       c.add({
         attributes: {},
@@ -88,7 +88,34 @@ describe("Collection", function() {
       });
     });
 
-  });
+    //it("Guards againts cid collision", function() {
+    it("Silently skips add if the .cid exists (beware if you have multiple cid generators)", function() {
+      var c = new yobo.Collection();
+      c.add({
+        attributes: {},
+        cid: 'c1',
+        on: mocks.spy(),
+        trigger: mocks.spy(),
+        set: mocks.spy()
+      });
+      var m2 = {
+        attributes: {},
+        cid: 'c1',
+        on: mocks.spy(),
+        trigger: mocks.spy()
+      };
+      // It is Backbone standard behavior to skip silently, should we override that? in ligtht of laxer isModel?
+      //expect(function() {
+      c.add(m2);
+      //}).to.throw(/A non-identical model has the same cid "c1" as the one just added/);
+      expect(c).to.have.length(1);
+      expect(c.at(0)).to.not.equal(m2);
+      // IF you do merge you probably expect cid collissions so no danger here
+      c.add(m2, {merge: true});
+      //expect(c.at(0)).to.equal(m2);
+      expect(c.at(0).set).to.have.property('lastCall').with.property('arg').that.equals(m2.attribute);
+    });
 
+  });
 
 });
