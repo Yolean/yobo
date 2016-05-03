@@ -1,6 +1,6 @@
 'use strict';
 
-var FilteredCollection = require('backbone-filtered-collection');
+var FilteredCollection = require('yobo-filtered-collection');
 
 // the major disadvantage with this lib is that the subset is of a different type than the superset
 var cocktail = require('backbone.cocktail');

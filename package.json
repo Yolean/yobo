@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Yolean/yobo",
   "dependencies": {
     "backbone": "~1.2.3",
-    "backbone-filtered-collection": "~0.4.0",
+    "yobo-filtered-collection": "~0.4.1",
     "backbone.cocktail": "~0.5.10",
     "underscore": "^1.8.3"
   },
