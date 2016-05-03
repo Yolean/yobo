@@ -1,6 +1,6 @@
 {
   "name": "yobo",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Yolean Backbone",
   "main": "index.js",
   "scripts": {
