@@ -113,7 +113,7 @@ describe("Collection", function() {
       // IF you do merge you probably expect cid collissions so no danger here
       c.add(m2, {merge: true});
       //expect(c.at(0)).to.equal(m2);
-      expect(c.at(0).set).to.have.property('lastCall').with.property('arg').that.equals(m2.attribute);
+      expect(c.at(0).set).to.have.property('lastCall').with.property('arg').that.equals(m2.attributes);
     });
 
   });
